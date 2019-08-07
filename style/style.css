@@ -1,6 +1,51 @@
+/* imports */
+@import url("https://fonts.googleapis.com/css?family=Cantarell&display=swap");
+
 /* reset css */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+/* utilities */
+.container {
+  max-width: 1170px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  padding: 0 15px;
+}
+
+/* app style */
+body {
+  height: 100vh;
+  background-image: radial-gradient(
+    circle 229px at 11.1% 19.3%,
+    rgba(187, 240, 228, 1) 0%,
+    rgba(156, 216, 223, 1) 90%
+  );
+}
+main {
+  font-family: "Cantarell", sans-serif;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-window {
+  padding: 5px 20px;
+  height: 800px;
+  width: 700px;
+  border: 8px solid whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.section-a {
+  display: flex;
+}
+.section-b {
+  display: flex;
 }
