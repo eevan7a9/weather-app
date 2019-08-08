@@ -51,7 +51,7 @@ main {
   display: flex;
 }
 .section-a h1 {
-  margin-left: 15px;
+  margin-left: 5px;
 }
 .section-a h3 {
   margin-top: 20px;
@@ -63,6 +63,19 @@ main {
 }
 .section-b {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.section-b img {
+  width: 150px;
+  height: 150px;
+}
+.section-b div {
+  display: flex;
+}
+.section-b h1 {
+  text-transform: capitalize;
+  margin-bottom: 20px;
 }
 .section-b p {
   margin-left: 10px;

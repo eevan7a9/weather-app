@@ -1,22 +1,38 @@
 window.addEventListener("load", () => {
-  const key = "";
+  const key = " ";
+  const country = document.querySelector("#country");
   const time = document.querySelector("#time");
   const sunrise = document.querySelector("#sunrise");
   const sinset = document.querySelector("#sunset");
+  const description = document.querySelector("#description");
   const temp = document.querySelector("#temperature");
   const text = document.querySelector("#text_info");
-
+  const icon = document.querySelector("#icon");
   setInterval(() => {
     time.innerHTML = getTime();
   }, 1000);
-  getCoord(key, temp, text, sunrise, sinset);
+  getCoord(key, country, icon, description, temp, text, sunrise, sinset);
 });
-const getTextInfo = function(temperature) {
+const getTextInfo = function(temperature, description) {
   const temp = Math.round(temperature);
   console.log(temp);
   if (temp >= 302) {
+    if (
+      description == "rain" ||
+      description == "shower rain" ||
+      description == "thunderstorm"
+    ) {
+      return "It's Cool";
+    }
     return "It's Hot";
   } else if (temp < 302 && temp >= 300) {
+    if (
+      description == "rain" ||
+      description == "shower rain" ||
+      description == "thunderstorm"
+    ) {
+      return "It's Cool";
+    }
     return "It's Warm";
   } else if (temp < 300 && temp > 295) {
     return "It's Cool";
@@ -48,7 +64,16 @@ const getTime = function(unix_time) {
   return `${twelve_hours_format}:${minutes}:${seconds} ${am_pm}`;
 };
 
-const getCoord = function(key, temp, text_info, sunrise, sunset) {
+const getCoord = function(
+  key,
+  country,
+  icon,
+  description,
+  temp,
+  text_info,
+  sunrise,
+  sunset,
+) {
   let long;
   let lat;
   if (navigator.geolocation) {
@@ -65,7 +90,12 @@ const getCoord = function(key, temp, text_info, sunrise, sunset) {
         )
           .then(response => response.json())
           .then(data => {
-            console.log(JSON.stringify(data));
+            console.log(JSON.stringify(data.weather));
+            country.innerHTML = data.sys.country;
+            icon.src = `http://openweathermap.org/img/wn/${
+              data.weather[0].icon
+            }@2x.png`;
+            description.innerHTML = data.weather[0].description;
             temp.innerHTML = convertKelvin(data.main.temp, "celsius");
             text_info.innerHTML = getTextInfo(data.main.temp);
             sunrise.innerHTML = getTime(data.sys.sunrise);
