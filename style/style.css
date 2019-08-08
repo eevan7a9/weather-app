@@ -36,7 +36,7 @@ main {
 .main-window {
   padding: 5px 20px;
   height: 800px;
-  width: 700px;
+  width: 70%;
   border: 8px solid whitesmoke;
   display: flex;
   flex-direction: column;
