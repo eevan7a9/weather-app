@@ -45,7 +45,25 @@ main {
 }
 .section-a {
   display: flex;
+  flex-direction: column;
+}
+.section-a div {
+  display: flex;
+}
+.section-a h1 {
+  margin-left: 15px;
+}
+.section-a h3 {
+  margin-top: 20px;
+  font-weight: 100;
+}
+.section-a h3 span {
+  font-weight: 900;
+  font-size: 20px;
 }
 .section-b {
   display: flex;
+}
+.section-b p {
+  margin-left: 10px;
 }

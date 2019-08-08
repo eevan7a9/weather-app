@@ -4,18 +4,33 @@ window.addEventListener("load", () => {
   const sunrise = document.querySelector("#sunrise");
   const sinset = document.querySelector("#sunset");
   const temp = document.querySelector("#temperature");
+  const text = document.querySelector("#text_info");
 
   setInterval(() => {
     time.innerHTML = getTime();
   }, 1000);
-  getCoord(key, temp, sunrise, sinset);
+  getCoord(key, temp, text, sunrise, sinset);
 });
-
+const getTextInfo = function(temperature) {
+  const temp = Math.round(temperature);
+  console.log(temp);
+  if (temp >= 302) {
+    return "It's Hot";
+  } else if (temp < 302 && temp >= 300) {
+    return "It's Warm";
+  } else if (temp < 300 && temp > 295) {
+    return "It's Cool";
+  } else if (temp < 295 && temp > 288) {
+    return "It's Cold";
+  } else {
+    return "It's very Cold";
+  }
+};
 const convertKelvin = function(value, to) {
   if (to == "celsius") {
-    return value - 273.15;
+    return Math.round((value - 273.15) * 100) / 100 + " C&deg";
   } else if (to == "Fahrenheit") {
-    return (value * 9) / 5 - 459.67;
+    return Math.round(((value * 9) / 5 - 459.67) * 100) / 100 + " F&deg";
   }
 };
 
@@ -33,7 +48,7 @@ const getTime = function(unix_time) {
   return `${twelve_hours_format}:${minutes}:${seconds} ${am_pm}`;
 };
 
-const getCoord = function(key, temp, sunrise, sunset) {
+const getCoord = function(key, temp, text_info, sunrise, sunset) {
   let long;
   let lat;
   if (navigator.geolocation) {
@@ -50,8 +65,9 @@ const getCoord = function(key, temp, sunrise, sunset) {
         )
           .then(response => response.json())
           .then(data => {
-            console.log(JSON.stringify(data.main));
+            console.log(JSON.stringify(data));
             temp.innerHTML = convertKelvin(data.main.temp, "celsius");
+            text_info.innerHTML = getTextInfo(data.main.temp);
             sunrise.innerHTML = getTime(data.sys.sunrise);
             sunset.innerHTML = getTime(data.sys.sunset);
           });
