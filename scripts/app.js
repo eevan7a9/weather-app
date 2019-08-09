@@ -1,5 +1,5 @@
 window.addEventListener("load", () => {
-  const key = " ";
+  const key = "";
   const country = document.querySelector("#country");
   const time = document.querySelector("#time");
   const sunrise = document.querySelector("#sunrise");
@@ -9,11 +9,12 @@ window.addEventListener("load", () => {
   const text = document.querySelector("#text_info");
   const icon = document.querySelector("#icon");
   const calendar = document.querySelector("#calendar_ui");
+  const year_month = document.querySelector("#year_month");
   setInterval(() => {
     time.innerHTML = getTime();
   }, 1000);
   getWeather(key, country, icon, description, temp, text, sunrise, sinset);
-  calendarInit(calendar);
+  calendarInit(calendar, year_month);
 });
 const getTextInfo = function(temperature, description) {
   const temp = Math.round(temperature);
@@ -112,9 +113,13 @@ const getWeather = function(
     console.log("false");
   }
 };
-const calendarInit = function(calendar) {
-  console.log(calendar);
+const calendarInit = function(calendar, year_month) {
   const date_full = new Date();
+  const options = { month: "long" };
+  const month_long = new Intl.DateTimeFormat("en-US", options).format(
+    date_full,
+  );
+  year_month.innerHTML = `${date_full.getFullYear()}, ${month_long}`;
   // we get the numbe of days this month
   const num_of_days = new Date(
     date_full.getFullYear(),
