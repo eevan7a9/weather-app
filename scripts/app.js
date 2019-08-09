@@ -12,7 +12,7 @@ window.addEventListener("load", () => {
   setInterval(() => {
     time.innerHTML = getTime();
   }, 1000);
-  getCoord(key, country, icon, description, temp, text, sunrise, sinset);
+  getWeather(key, country, icon, description, temp, text, sunrise, sinset);
   calendarInit(calendar);
 });
 const getTextInfo = function(temperature, description) {
@@ -66,7 +66,7 @@ const getTime = function(unix_time) {
   return `${twelve_hours_format}:${minutes}:${seconds} ${am_pm}`;
 };
 
-const getCoord = function(
+const getWeather = function(
   key,
   country,
   icon,
@@ -120,26 +120,38 @@ const calendarInit = function(calendar) {
     date_full.getFullYear(),
     date_full.getMonth() + 1,
     0,
-  );
+  ).getDate();
   // we get the day of the first date
   const start_day = new Date(
     date_full.getFullYear(),
     date_full.getMonth(),
     1,
   ).getDay();
-  const date_start = 1;
+  let date_start = 1;
   console.log(num_of_days);
-  for (let i = 0; i < 6; i++) {
+  for (let x = 0; x < 6; x++) {
     const row_div = document.createElement("div");
     row_div.classList.add("row-div", "a");
     calendar.appendChild(row_div);
 
-    for (let j = 0; j < 7; j++) {
+    for (let y = 0; y < 7; y++) {
       const column_div = document.createElement("div");
-      const text = document.createTextNode(" ");
-      column_div.appendChild(text);
+      const blank_div = document.createTextNode(` `);
+      column_div.appendChild(blank_div);
       column_div.classList.add("column-div");
       row_div.appendChild(column_div);
+      if (x == 0 && start_day > y) {
+        column_div.innerHTML = " ";
+      } else if (date_start > num_of_days) {
+        column_div.innerHTML = " ";
+      } else {
+        column_div.innerHTML = `<span class="date">${date_start}</span>`;
+        if (date_start === new Date().getDate()) {
+          column_div.innerHTML = `<span class="today">${date_start}</span>`;
+        }
+        column_div.classList.add("column-div");
+        date_start++;
+      }
     }
     calendar.appendChild(row_div);
   }
