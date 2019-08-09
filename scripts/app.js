@@ -141,7 +141,7 @@ const calendarInit = function(calendar, year_month) {
     1,
   ).getDay();
   let date_start = 1;
-  console.log(num_of_days);
+  // console.log(num_of_days);
   for (let x = 0; x < 6; x++) {
     const row_div = document.createElement("div");
     row_div.classList.add("row-div", "a");
