@@ -8,10 +8,12 @@ window.addEventListener("load", () => {
   const temp = document.querySelector("#temperature");
   const text = document.querySelector("#text_info");
   const icon = document.querySelector("#icon");
+  const calendar = document.querySelector("#calendar_ui");
   setInterval(() => {
     time.innerHTML = getTime();
   }, 1000);
   getCoord(key, country, icon, description, temp, text, sunrise, sinset);
+  calendarInit(calendar);
 });
 const getTextInfo = function(temperature, description) {
   const temp = Math.round(temperature);
@@ -77,29 +79,27 @@ const getCoord = function(
   let long;
   let lat;
   if (navigator.geolocation) {
-    console.log("yeah");
     navigator.geolocation.getCurrentPosition(
       position => {
         long = position.coords.longitude;
         lat = position.coords.latitude;
-
-        console.log(lat, long);
+        // console.log(lat, long);
         fetch(
           // `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`,
           `https://api.openweathermap.org/data/2.5/weather?lat=${lat}2&lon=${long}&appid=${key}`,
         )
           .then(response => response.json())
           .then(data => {
-            console.log(JSON.stringify(data.weather));
-            country.innerHTML = data.sys.country;
+            // console.log(JSON.stringify(data));
+            country.textContent = data.sys.country;
             icon.src = `http://openweathermap.org/img/wn/${
               data.weather[0].icon
             }@2x.png`;
-            description.innerHTML = data.weather[0].description;
+            description.textContent = data.weather[0].description;
             temp.innerHTML = convertKelvin(data.main.temp, "celsius");
-            text_info.innerHTML = getTextInfo(data.main.temp);
-            sunrise.innerHTML = getTime(data.sys.sunrise);
-            sunset.innerHTML = getTime(data.sys.sunset);
+            text_info.textContent = getTextInfo(data.main.temp);
+            sunrise.textContent = getTime(data.sys.sunrise);
+            sunset.textContent = getTime(data.sys.sunset);
           });
       },
       error => {
@@ -110,5 +110,37 @@ const getCoord = function(
     );
   } else {
     console.log("false");
+  }
+};
+const calendarInit = function(calendar) {
+  console.log(calendar);
+  const date_full = new Date();
+  // we get the numbe of days this month
+  const num_of_days = new Date(
+    date_full.getFullYear(),
+    date_full.getMonth() + 1,
+    0,
+  );
+  // we get the day of the first date
+  const start_day = new Date(
+    date_full.getFullYear(),
+    date_full.getMonth(),
+    1,
+  ).getDay();
+  const date_start = 1;
+  console.log(num_of_days);
+  for (let i = 0; i < 6; i++) {
+    const row_div = document.createElement("div");
+    row_div.classList.add("row-div", "a");
+    calendar.appendChild(row_div);
+
+    for (let j = 0; j < 7; j++) {
+      const column_div = document.createElement("div");
+      const text = document.createTextNode(" ");
+      column_div.appendChild(text);
+      column_div.classList.add("column-div");
+      row_div.appendChild(column_div);
+    }
+    calendar.appendChild(row_div);
   }
 };

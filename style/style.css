@@ -80,3 +80,21 @@ main {
 .section-b p {
   margin-left: 10px;
 }
+.section-c {
+  height: 600px;
+  width: 100%;
+}
+.row-div {
+  width: auto;
+  height: 50px;
+  border: solid 1px #333;
+  display: flex;
+}
+.column-div {
+  width: 50px;
+  height: 50px;
+  border: solid 1px #444;
+}
+.a {
+  color: red;
+}
