@@ -1,5 +1,5 @@
 window.addEventListener("load", () => {
-  const key = "";
+  const key = " ";
   const country = document.querySelector("#country");
   const time = document.querySelector("#time");
   const sunrise = document.querySelector("#sunrise");
@@ -16,9 +16,9 @@ window.addEventListener("load", () => {
   getWeather(key, country, icon, description, temp, text, sunrise, sinset);
   calendarInit(calendar, year_month);
 });
-const getTextInfo = function(temperature, description) {
+const getTextInfo = function(temperature, description, hours) {
   const temp = Math.round(temperature);
-  console.log(temp);
+
   if (temp >= 302) {
     if (
       description == "rain" ||
@@ -26,6 +26,8 @@ const getTextInfo = function(temperature, description) {
       description == "thunderstorm"
     ) {
       return "It's Cool";
+    } else if (hours < 6 || hours > 17) {
+      return "It's cool";
     }
     return "It's Hot";
   } else if (temp < 302 && temp >= 300) {
@@ -35,6 +37,8 @@ const getTextInfo = function(temperature, description) {
       description == "thunderstorm"
     ) {
       return "It's Cool";
+    } else if (hours < 6 || hours > 17) {
+      return "It's cool";
     }
     return "It's Warm";
   } else if (temp < 300 && temp > 295) {
@@ -93,12 +97,18 @@ const getWeather = function(
           .then(data => {
             // console.log(JSON.stringify(data));
             country.textContent = data.sys.country;
+            // we add icon
             icon.src = `http://openweathermap.org/img/wn/${
               data.weather[0].icon
             }@2x.png`;
+            icon.classList.remove("enlarge_img");
             description.textContent = data.weather[0].description;
             temp.innerHTML = convertKelvin(data.main.temp, "celsius");
-            text_info.textContent = getTextInfo(data.main.temp);
+            text_info.textContent = getTextInfo(
+              data.main.temp,
+              data.weather[0].description,
+              new Date().getHours(),
+            );
             sunrise.textContent = getTime(data.sys.sunrise);
             sunset.textContent = getTime(data.sys.sunset);
           });
