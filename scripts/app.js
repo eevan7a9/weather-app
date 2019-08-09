@@ -1,5 +1,5 @@
 window.addEventListener("load", () => {
-  const key = " ";
+  const key = "";
   const country = document.querySelector("#country");
   const time = document.querySelector("#time");
   const sunrise = document.querySelector("#sunrise");
@@ -98,9 +98,7 @@ const getWeather = function(
             // console.log(JSON.stringify(data));
             country.textContent = data.sys.country;
             // we add icon
-            icon.src = `http://openweathermap.org/img/wn/${
-              data.weather[0].icon
-            }@2x.png`;
+            icon.src = `../img/${data.weather[0].icon}.png`;
             icon.classList.remove("enlarge_img");
             description.textContent = data.weather[0].description;
             temp.innerHTML = convertKelvin(data.main.temp, "celsius");
