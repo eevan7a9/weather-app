@@ -1,22 +1,25 @@
+const key = "7bc9087a5d9e43d6828e0e5e3f341b89";
+const country = document.querySelector("#country");
+const time = document.querySelector("#time");
+const sunrise = document.querySelector("#sunrise");
+const sinset = document.querySelector("#sunset");
+const description = document.querySelector("#description");
+const temp = document.querySelector("#temperature");
+const text = document.querySelector("#text_info");
+const icon = document.querySelector("#icon");
+const calendar = document.querySelector("#calendar_ui");
+const year_month = document.querySelector("#year_month");
+const body = document.querySelector('body');
+const calendarBg = document.querySelector('.section-c');
+
 window.addEventListener("load", () => {
-  const key = "";
-  const country = document.querySelector("#country");
-  const time = document.querySelector("#time");
-  const sunrise = document.querySelector("#sunrise");
-  const sinset = document.querySelector("#sunset");
-  const description = document.querySelector("#description");
-  const temp = document.querySelector("#temperature");
-  const text = document.querySelector("#text_info");
-  const icon = document.querySelector("#icon");
-  const calendar = document.querySelector("#calendar_ui");
-  const year_month = document.querySelector("#year_month");
   setInterval(() => {
     time.innerHTML = getTime();
   }, 1000);
   getWeather(key, country, icon, description, temp, text, sunrise, sinset);
   calendarInit(calendar, year_month);
 });
-const getTextInfo = function(temperature, description, hours) {
+const getTextInfo = function (temperature, description, hours) {
   const temp = Math.round(temperature);
 
   if (temp >= 302) {
@@ -49,7 +52,7 @@ const getTextInfo = function(temperature, description, hours) {
     return "It's very Cold";
   }
 };
-const convertKelvin = function(value, to) {
+const convertKelvin = function (value, to) {
   if (to == "celsius") {
     return Math.round((value - 273.15) * 100) / 100 + " C&deg";
   } else if (to == "Fahrenheit") {
@@ -57,7 +60,52 @@ const convertKelvin = function(value, to) {
   }
 };
 
-const getTime = function(unix_time) {
+const getBackground = function (description) {
+
+  switch (description) {
+    case 'clear sky':
+      body.style.backgroundImage = "url('https://images.unsplash.com/photo-1469217329261-b173b63012f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')";
+      calendarBg.style.backgroundImage = "url('https://images.unsplash.com/photo-1469217329261-b173b63012f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')"
+      break;
+    case 'few clouds':
+      body.style.backgroundImage = "url('https://images.unsplash.com/photo-1565840720726-322e8aeb474b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')";
+      calendarBg.style.backgroundImage = "url('https://images.unsplash.com/photo-1565840720726-322e8aeb474b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')";
+      break;
+    case 'scattered clouds':
+      body.style.backgroundImage = "url('https://images.unsplash.com/photo-1563289723-61a8ca980c43?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1439&q=80')";
+      calendarBg.style.backgroundImage = "url('https://images.unsplash.com/photo-1563289723-61a8ca980c43?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1439&q=80')";
+      break;
+    case 'broken clouds':
+      body.style.backgroundImage = "url('https://images.unsplash.com/photo-1478191649591-05abc4bc29d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80')";
+      calendarBg.style.backgroundImage = "url('https://images.unsplash.com/photo-1478191649591-05abc4bc29d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80')";
+      break;
+    case 'shower rain':
+      body.style.backgroundImage = "url('https://images.unsplash.com/photo-1494007485290-ce668e189d92?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')";
+      calendarBg.style.backgroundImage = "url('https://images.unsplash.com/photo-1494007485290-ce668e189d92?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')";
+      break;
+    case 'rain':
+      body.style.backgroundImage = "url('https://images.unsplash.com/photo-1498847559558-1e4b1a7f7a2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')";
+      calendarBg.style.backgroundImage = "url('https://images.unsplash.com/photo-1498847559558-1e4b1a7f7a2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')";
+      break;
+    case 'thunderstorm':
+      body.style.backgroundImage = "url('https://images.unsplash.com/photo-1574781481375-74a09eba71e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')";
+      calendarBg.style.backgroundImage = "url('https://images.unsplash.com/photo-1574781481375-74a09eba71e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')";
+      break;
+    case 'snow':
+      body.style.backgroundImage = "url('https://images.unsplash.com/photo-1547754980-3df97fed72a8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')";
+      calendarBg.style.backgroundImage = "url('https://images.unsplash.com/photo-1547754980-3df97fed72a8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')";
+      break;
+    case 'mist':
+      body.style.backgroundImage = "url('https://images.unsplash.com/photo-1482841628122-9080d44bb807?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80')";
+      calendarBg.style.backgroundImage = "url('https://images.unsplash.com/photo-1482841628122-9080d44bb807?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80')";
+      break;
+
+    default:
+      break;
+  }
+}
+
+const getTime = function (unix_time) {
   let date = new Date();
   if (unix_time) {
     date = new Date(unix_time * 1000);
@@ -71,7 +119,7 @@ const getTime = function(unix_time) {
   return `${twelve_hours_format}:${minutes}:${seconds} ${am_pm}`;
 };
 
-const getWeather = function(
+const getWeather = function (
   key,
   country,
   icon,
@@ -109,6 +157,7 @@ const getWeather = function(
             );
             sunrise.textContent = getTime(data.sys.sunrise);
             sunset.textContent = getTime(data.sys.sunset);
+            getBackground(data.weather[0].description);
           });
       },
       error => {
@@ -121,7 +170,7 @@ const getWeather = function(
     console.log("false");
   }
 };
-const calendarInit = function(calendar, year_month) {
+const calendarInit = function (calendar, year_month) {
   const date_full = new Date();
   const options = { month: "long" };
   const month_long = new Intl.DateTimeFormat("en-US", options).format(
