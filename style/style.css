@@ -96,6 +96,22 @@ main {
   width: 100px;
   height: 100px;
 }
+.section-b .show-weather {
+  padding: 16px;
+  font-size: 20px;
+  font-weight: 900;
+  background: aliceblue;
+  border: 3px solid #333;
+  cursor: pointer;
+
+  box-shadow: 0 0 0 rgba(204, 169, 44, 0.4);
+  animation: pulse 1.5s infinite;
+}
+.section-b .show-weather:disabled {
+  animation: none;
+  border-color: #fff;
+  cursor: not-allowed;
+}
 .enlarge_img {
   width: 300px !important;
   height: 200px !important;
@@ -184,6 +200,32 @@ main {
   text-shadow: 1px 1px 2px rgb(185, 172, 172), -1px -1px 5px rgb(65, 63, 63),
     1px -1px 5px rgb(65, 63, 63), -1px 1px 2px rgb(65, 63, 63),
     1px 1px 2px rgb(65, 63, 63);
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 #333;
+  }
+  70% {
+    -webkit-box-shadow: 0 0 0 10px #22222200;
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0 #22222200;
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 #333;
+    box-shadow: 0 0 0 0 #333;
+  }
+  70% {
+    -moz-box-shadow: 0 0 0 10px #22222200;
+    box-shadow: 0 0 0 10px #22222200;
+  }
+  100% {
+    -moz-box-shadow: 0 0 0 0 #22222200;
+    box-shadow: 0 0 0 0 #22222200;
+  }
 }
 /* Media Querry */
 @media (max-width: 770px) {
